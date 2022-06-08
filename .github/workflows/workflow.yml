@@ -43,12 +43,6 @@ jobs:
       - name: Checkout GitHub Actions 
         uses: actions/checkout@v2    
           
-      - name: Create Azure Load Testing resource
-        uses: azure/arm-deploy@v1
-        with:
-          resourceGroupName: ${{ env.LOAD_TEST_RESOURCE_GROUP }}
-          template: ./ARMTemplate/template.json
-          parameters: ./ARMTemplate/parameters.json name=${{ env.LOAD_TEST_RESOURCE }} location="${{ env.LOCATION }}"
           
       - name: 'Azure Load Testing'
         uses: azure/load-testing@v1
