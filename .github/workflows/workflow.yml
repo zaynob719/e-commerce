@@ -1,4 +1,4 @@
-ame: Sample App deploy
+name: Sample App deploy
 
 # Controls when the workflow will run
 on:
