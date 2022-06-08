@@ -1,4 +1,4 @@
-version: v1.0
+version: v0.1
 testName: TestPlan3
 testPlan: TestPlan3.jmx
 description: 'Sample Test Run'
