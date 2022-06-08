@@ -41,13 +41,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub Actions 
-        uses: actions/checkout@v2    
-          
+        uses: actions/checkout@v2  
+        
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: 'Azure Load Testing'
         uses: azure/load-testing@v1
         with:
-          loadTestConfigFile: 'TestPlan3.jmx'
+          loadTestConfigFile: 'TestPlan3.yaml'
           loadTestResource: ${{ env.LOAD_TEST_RESOURCE }}
           resourceGroup: ${{ env.LOAD_TEST_RESOURCE_GROUP }}
           env: |
