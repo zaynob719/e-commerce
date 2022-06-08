@@ -1,5 +1,5 @@
 version: v0.1
-testName: Test Plan
-testPlan: Test Plan3.jmx
+testName: TestPlan
+testPlan: TestPlan3.jmx
 description: 'Sample Test Run'
 engineInstances: 4
