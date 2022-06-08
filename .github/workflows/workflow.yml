@@ -1,1 +1,35 @@
+ame: Sample App deploy
 
+# Controls when the workflow will run
+on:
+  push:
+      branches:
+        - main
+
+env:
+  AZURE_WEBAPP_NAME: "dev.smarty.3.uk"    # set this to your application's name
+  LOAD_TEST_RESOURCE: "my-load-testing"
+  LOAD_TEST_RESOURCE_GROUP: "myResourceGroup2"
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '14.15.1'                # set this to the node version to use
+  LOCATION: "east us"
+  APPINSIGHTLOCATION: "east us"
+  DATABASEACCOUNTLOCATION: "east us"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout GitHub Actions 
+        uses: actions/checkout@v2
+        
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
