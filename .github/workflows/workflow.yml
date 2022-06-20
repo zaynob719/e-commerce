@@ -1,11 +1,9 @@
 name: Sample App deploy
-
 # Controls when the workflow will run
 on:
   push:
       branches:
         - main
-
 env:
   AZURE_WEBAPP_NAME: "my-load-testing1"    # set this to your application's name
   LOAD_TEST_RESOURCE: "my-load-testing1"
@@ -15,21 +13,33 @@ env:
   LOCATION: "east us"
   APPINSIGHTLOCATION: "east us"
   DATABASEACCOUNTLOCATION: "east us"
-
-  loadTest:
-    name: Load Test
-    needs: build-and-deploy
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-deploy:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout GitHub Actions 
-        uses: actions/checkout@v2  
-        
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout GitHub Actions
+        uses: actions/checkout@v2
       - name: Login to Azure
         uses: azure/login@v1
         continue-on-error: false
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+  loadTest:
+    name: Load Test
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Actions
+        uses: actions/checkout@v2
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: 'Azure Load Testing'
         uses: azure/load-testing@v1
         with:
@@ -42,8 +52,7 @@ env:
               "name": "TestPlan3",
               "value": "${{ env.AZURE_WEBAPP_NAME }}.my-load-testing1"
               }
-            ]          
-      
+            ]
       - uses: actions/upload-artifact@v2
         with:
           name: loadTestResults
