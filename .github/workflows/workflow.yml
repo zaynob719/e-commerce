@@ -11,8 +11,8 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.15.1'                # set this to the node version to use
   LOCATION: "east us"
-  APPINSIGHTLOCATION: "east us"
-  DATABASEACCOUNTLOCATION: "east us"
+  APPINSIGHTLOCATION: "uk south"
+  DATABASEACCOUNTLOCATION: "uk south"
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-deploy:
